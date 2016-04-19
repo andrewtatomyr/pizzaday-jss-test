@@ -350,18 +350,34 @@ Meteor.methods({
         }
       }
 
-      console.log("|");
+      /*console.log("|");
       console.log("|");
       console.log("V");
       console.log(total$);
       console.log('::::::::::::::::::');
       console.log(totalCount);
       console.log("------------");
-      console.log(usedCoupons);
+      console.log(usedCoupons);*/
 
       //sending emails:
 
       var cc= Groups.findOne({"groupName": group}.creator);
+
+
+      for (var usr in pp) { //sending emails
+        /*let order= "";
+        for (var itm in pp[usr].order) {
+          order+= "> "+pp[usr].order[itm].itemName+" x "+pp[usr].order[itm].count+"\n";
+        }*/
+        var text= Meteor.call("renderEmailText", total$[usr], pp[usr].order);
+        Meteor.call("sendEmail",
+          pp[usr].email,
+          "event@pizzaday-jss-test.herokuapp.com",
+          "Event in '"+group+"'",
+          text //"Your order:"+"\n"+order+"\n"+"Total cost: $"+total$[usr]
+        )
+
+      }
 
       //var order= new Order(pp, gg, group);
 
@@ -441,6 +457,27 @@ Meteor.methods({
 
 
 
+
+
+
+/*
+
+SSR.compileTemplate('emailText', 'Hello {{username}}, <br> Now time is: {{time}}');
+
+Template.emailText.helpers({
+  time: function() {
+    return new Date().toString();
+  }
+});
+
+
+Meteor.methods({
+  ss: function() {
+    var html = SSR.render("emailText", {username: "arunoda"});
+    console.log(":::->");
+    console.log(html);
+  }
+});
 
 
 /*
