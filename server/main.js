@@ -1,6 +1,6 @@
 Meteor.startup( function() {
   //process.env.MAIL_URL = "smtp://***:***@smtp.mailgun.org:587";
-  process.env.MONGO_URL= "mongodb://pizzaday:12345678@ds011251.mlab.com:11251/pizzaday";
+  //process.env.MONGO_URL= "mongodb://***:***@ds011251.mlab.com:11251/pizzaday";
 });
 
 
