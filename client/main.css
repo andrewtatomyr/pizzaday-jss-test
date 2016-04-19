@@ -1,0 +1,9 @@
+/* CSS declarations go here */
+
+.selected {
+  background: yellow;
+}
+
+.hidden {
+  display: none;
+}
