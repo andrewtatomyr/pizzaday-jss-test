@@ -1,14 +1,69 @@
 
+class EventHelpers {
+  /*constructor() {
 
+  }
+  isActiveEvent(selectedGroup) {
+    //var selectedGroup= Session.get("selectedGroup");
+    var groupEvent= Events.findOne({"group": selectedGroup});
+    console.log("~isActiveEvent", selectedGroup);
+    return groupEvent? true: false;
+  }*/
 
+  ePD(selectedGroup) {
+    //var selectedGroup= Session.get("selectedGroup");
+    var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
+    var user= Participants.findOne({
+      "group": selectedGroup,
+      "name": Meteor.user().profile.name
+    });
+    console.log("~ePD", selectedGroup);
+    var userStatusNote= user.orderStatus==="confirmed"?
+      "Your Order Was Placed":
+      user.orderStatus==="discarded"? "You Refused To Participate":
+    "";
+    //console.log(userStatusNote);
+
+    return {
+      _id: groupEvent._id,
+      //new:
+      isActiveEvent: groupEvent? true: false,
+      eventStatus: groupEvent.eventStatus,
+
+      isOrdering: groupEvent.eventStatus==="ordering"? "checked": "",
+      isOrdered: groupEvent.eventStatus==="ordered"? "checked": "",
+      isDelivering: groupEvent.eventStatus==="delivering"? "checked": "",
+      isDelivered: groupEvent.eventStatus==="delivered"? "checked": "",
+      eventDate: groupEvent.eventDate,
+      eventParticipants: groupEvent.eventParticipants
+
+      , userOrder: user.order //new
+      , userOrderStatus: user.orderStatus //new
+      , userStatusNote: userStatusNote //new?
+    }
+  }
+
+}
+eventHelpers= new EventHelpers();
+/*eventHelpers.prototype.isActiveEvent= function() {
+  var selectedGroup= Session.get("selectedGroup");
+  var groupEvent= Events.findOne({"group": selectedGroup});
+  return groupEvent? true: false;
+}*/
+//console.log("~~>");
+//console.log(Events.findOne({"group": selectedGroup}));
 
 Template.eventPizzaDayControls.helpers({
-  "isActiveEvent": function() {
+  /*"isActiveEvent": function() {
+    return eventHelpers.isActiveEvent(Session.get("selectedGroup"));
+  }, /*function() {
     var selectedGroup= Session.get("selectedGroup");
     var groupEvent= Events.findOne({"group": selectedGroup});
     return groupEvent? true: false;
-  },
+  },*/
   "ePD": function() {
+    return eventHelpers.ePD(Session.get("selectedGroup"));
+  } /*function() {
     var selectedGroup= Session.get("selectedGroup");
     var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
 
@@ -22,7 +77,7 @@ Template.eventPizzaDayControls.helpers({
       eventDate: groupEvent.eventDate,
       eventParticipants: groupEvent.eventParticipants
     }
-  }
+  }*/
 });
 Template.eventPizzaDayControls.events({
   "click .createEvent": function() { //createEvent
@@ -56,13 +111,17 @@ Template.eventPizzaDayControls.events({
 
 Template.eventPizzaDay.helpers({
   //duplicate:
-  "isActiveEvent": function() {
+  /*"isActiveEvent": function() {
+    return eventHelpers.isActiveEvent(Session.get("selectedGroup"));
+  }, /*function() {
     var selectedGroup= Session.get("selectedGroup");
     var groupEvent= Events.findOne({"group": selectedGroup});
     return groupEvent? true: false;
-  },
+  },*/
   //duplicate:
   "ePD": function() {
+    return eventHelpers.ePD(Session.get("selectedGroup"));
+  } /*function() {
     var selectedGroup= Session.get("selectedGroup");
     var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
     var user= Participants.findOne({

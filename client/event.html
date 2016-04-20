@@ -5,7 +5,7 @@
   <h2>Manage 'Pizza Day' Event</h2>
   <!-- button class="createEvent ">Create New Pizza Day Event!</button -->
 
-  {{#if isActiveEvent}}
+  {{#if ePD.isActiveEvent}}
     <form class="" action="" method="post">
       <div class="">
         Event Date:
@@ -32,7 +32,7 @@
 
 
 <template name="eventPizzaDay">
-  {{#if isActiveEvent}}
+  {{#if ePD.isActiveEvent}}
     <h2>There is 'Pizza Day' Event Coming at {{ePD.eventDate}} ({{ePD.eventStatus}})!</h2>
     {{#if ePD.isOrdering}}{{#unless ePD.userOrderStatus}}
 
