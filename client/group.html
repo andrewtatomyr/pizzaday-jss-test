@@ -1,0 +1,65 @@
+
+
+
+
+<template name="groups">
+  <h2>Select Group or Create a New One</h2>
+  {{#each group}}
+    <a href="#{{groupName}}" class="group {{selectedClass}}">{{groupName}}</a>
+  {{/each}}
+  <form class="" action="" method="post">
+    <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
+    <input type="submit" name="createGroup" value="Create New Group">
+  </form>
+</template>
+
+
+
+
+<template name="groupControls">
+  <div class="{{creatorClass}}">
+    {{> participantsList}}
+    {{> usersList}}
+    {{> eventPizzaDayControls}}
+  </div>
+  <div class="{{participantClass}}">
+    {{> menuList}}
+    {{> createMenuItem}}
+    {{> eventPizzaDay}}
+  </div>
+</template>
+
+
+
+
+<template name="usersList">
+  <form class="" action="index.html" method="post">
+    <!-- h2>Registered Users:</h2 -->
+    <select name="selectedUser">
+      {{#each user}}
+        <option>{{profile.name}}</option>
+      {{/each}}
+    </select>
+    <input type="submit" name="addUserToGroup" value="Add User to '{{selectedGroup}}'">
+
+  </form>
+</template>
+
+
+
+
+
+<template name="participantsList">
+  <h2>Users In '{{selectedGroup}}' Group</h2>
+  <!-- form action="" method="post" -->
+    <ul>
+      {{#each participant}}
+        <li  >
+          {{name}} ({{group}})
+          <input type="button" class="removeParticipant" value="Remove">
+        </li>
+      {{/each}}
+    </ul>
+    <!-- input type="submit" name="addUserToGroup" value="Add User" -->
+  <!-- /form -->
+</template>

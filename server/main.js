@@ -83,7 +83,7 @@ Meteor.methods({
     console.log(Participants.find({"group": selectedGroup}).fetch());//x
     return Participants.find({"group": selectedGroup});//Participants.find({"group": selectedGroup})
   },
-  /**/
+  /**
   "createGroup": function(groupName) {
     var thisUser= Meteor.user();
     if (!thisUser) return false;
@@ -119,7 +119,7 @@ Meteor.methods({
   },
   "removeParticipant": function(_id) {
     Participants.remove(_id);
-  },
+  },*
   "createMenuItem": function(itemName, itemPrice, groupName) {
     //console.log("add: "+user)
     //var thisUser= Meteor.user().profile.name;
@@ -144,7 +144,7 @@ Meteor.methods({
     }});
 
   },
-  "orderItem": function(group, itemId) {
+/**  "orderItem": function(group, itemId) {
     //console.log('! must be ordered:'+ itemId);
     /*var participantOrder= Events.findOne({
       "group": group,
@@ -210,7 +210,7 @@ Meteor.methods({
       {$addToSet: {
         "eventParticipants.$.order": {itemId, count: 1}
       }}
-    );*/
+    );*
 
     var itemAlreadyInOrder= Participants.findOne({
         "group": group,
@@ -278,7 +278,7 @@ Meteor.methods({
       "eventParticipants.$.status": "confirmed"
 
     }});
-    */
+    *
     Participants.update({
       "group": group,
       "name": Meteor.user().profile.name
@@ -314,7 +314,7 @@ Meteor.methods({
             totalCount[pp[usr].order[itm].itemId]+= parseInt(pp[usr].order[itm].count);
           } else {
             totalCount[pp[usr].order[itm].itemId]= parseInt(pp[usr].order[itm].count);
-          }*/
+          }*
           var itemId= pp[usr].order[itm].itemId;
           var itemCount= parseInt(pp[usr].order[itm].count);
           if (isNaN(totalCount[itemId])) totalCount[itemId]= 0; //init
@@ -334,7 +334,7 @@ Meteor.methods({
         console.log(itemId+" >> "+ totalCount[itemId],"[",coupons,discount[itemId],"]");
 
       }
-      //*/
+      //*
 
 
       var total$= []; //total amount $
@@ -357,7 +357,7 @@ Meteor.methods({
       console.log('::::::::::::::::::');
       console.log(totalCount);
       console.log("------------");
-      console.log(usedCoupons);*/
+      console.log(usedCoupons);*
 
       //sending emails:
 
@@ -368,7 +368,7 @@ Meteor.methods({
         /*let order= "";
         for (var itm in pp[usr].order) {
           order+= "> "+pp[usr].order[itm].itemName+" x "+pp[usr].order[itm].count+"\n";
-        }*/
+        }*
         var html= Meteor.call("renderEmailHtml", pp[usr].name, total$[usr], pp[usr].order, eventDate, eventManager);
         console.log(`HTML>>`);
         console.log(html);
@@ -385,7 +385,7 @@ Meteor.methods({
 
     }
 
-    //*/
+    //*
 
   },
 
@@ -398,7 +398,7 @@ Meteor.methods({
       "orderStatus": "discarded"
 
     }});
-  },*/
+  },*
   "createEvent": function(group, eventDate) {
     console.log('! new event:'+ eventDate+ " @ "+group);
     //var menu=
@@ -413,7 +413,7 @@ Meteor.methods({
           "order": []
         }
     }
-*/
+*
     Events.insert({
       group,
       eventDate,
@@ -422,7 +422,7 @@ Meteor.methods({
     })
   },
   "updEvent": function(group, eventDate, eventStatus) {
-    console.log('! upd event:'+ " @ "+group);
+    //console.log('! upd event:'+ " @ "+group);
     Events.update({"group": group}, {$set: {
       "eventDate": eventDate,
       "eventStatus": eventStatus
@@ -430,7 +430,7 @@ Meteor.methods({
   },
   "finishEvent": function(group) {
     //-------------emailing & other
-    console.log('! finish event:'+ " @ "+group);
+    //console.log('! finish event:'+ " @ "+group);
     Events.remove({"group": group});
     Participants.update({
       "group": group
@@ -439,6 +439,8 @@ Meteor.methods({
       order: ""
     }}, {multi: true});
   }
+**/
+
 
 
 });

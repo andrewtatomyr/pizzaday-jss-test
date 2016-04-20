@@ -1,0 +1,64 @@
+
+
+
+<template name="eventPizzaDayControls">
+  <h2>Manage 'Pizza Day' Event</h2>
+  <!-- button class="createEvent ">Create New Pizza Day Event!</button -->
+
+  {{#if isActiveEvent}}
+    <form class="" action="" method="post">
+      <div class="">
+        Event Date:
+        <input name="eventDate" type="date" value="{{ePD.eventDate}}" >
+      </div>
+      <div class="">
+        Event Status:
+        <input type="radio" name="eventStatus" value="ordering" {{ePD.isOrdering}}> ordering |
+        <input type="radio" name="eventStatus" value="ordered" {{ePD.isOrdered}}> ordered |
+        <input type="radio" name="eventStatus" value="delivering" {{ePD.isDelivering}}> delivering |
+        <input type="radio" name="eventStatus" value="delivered" {{ePD.isDelivered}}> delivered
+      </div>
+
+      <input type="submit" name="updateEvent" value="Update Event">
+    </form>
+  {{else}}
+    <button class="createEvent" >Create New Event</button>
+  {{/if}}
+
+</template>
+
+
+
+
+
+<template name="eventPizzaDay">
+  {{#if isActiveEvent}}
+    <h2>There is 'Pizza Day' Event Coming at {{ePD.eventDate}} ({{ePD.eventStatus}})!</h2>
+    {{#if ePD.isOrdering}}{{#unless ePD.userOrderStatus}}
+
+      <ul>
+        {{#each ePD.userOrder}}
+          <li>
+            {{itemName}} ({{itemId}}) * {{count}}
+            <button class="inc">+</button>
+            <button class="del">delete</button>
+          </li>
+        {{/each}}
+      </ul>
+
+
+      Choose Items From Menu
+      {{#if ePD.userOrder}}
+        And <button class="confirmOrder">Confirm Order</button>
+      {{/if}}
+      Or <button class="discardParticipation">Discard Participation</button>
+
+
+    {{/unless}}{{/if}}
+
+    {{ePD.userStatusNote}}
+  {{else}}
+    <h2>No Active Events</h2>
+  {{/if}}
+
+</template>

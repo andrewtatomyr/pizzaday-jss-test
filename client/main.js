@@ -22,7 +22,7 @@ Template.afterSignIn.helpers({ //container
 
 
 
-
+/*
 Template.groups.helpers({
   "group": function() {
     return Groups.find();
@@ -38,7 +38,7 @@ Template.groups.helpers({
     console.log("selectedGroup: "+selectedGroup);
     return selectedGroup
   },
-  */
+  *
   "selectedClass": function() {
 
     var selectedGroup= Session.get("selectedGroup");
@@ -138,7 +138,7 @@ Template.groupControls.helpers({ //container
       eventDate: groupEvent.eventDate,
       eventParticipants: groupEvent.eventParticipants
     }
-  }*/
+  }*
 }); //no events like `submit form` (because it contains other tpl with forms)
 
 
@@ -150,21 +150,21 @@ Template.usersList.helpers({
     return Meteor.users.find();
     //Meteor.users.findOne({})
   },
-  /**/
+  /**
   "selectedGroup": function() { //???
     var selectedGroup= Session.get("selectedGroup");
     //console.log("selectedGroup: "+selectedGroup);
     return selectedGroup
   },
-  /**/
+  /**
 });
 Template.usersList.events({
   "submit form": function(event) { //addParticitant
     event.preventDefault();
     var selectedUser= event.target.selectedUser.value;
     var selectedGroup= Session.get("selectedGroup");
-    //alert(selectedUser+"@"+/*groupName*/selectedGroup)
-    Meteor.call("addParticitant", selectedUser, /*groupName*/selectedGroup);
+    //alert(selectedUser+"@"+/*groupName*selectedGroup)
+    Meteor.call("addParticitant", selectedUser, /*groupName*selectedGroup);
 
   }
 });
@@ -300,7 +300,7 @@ Template.editItem.events({
   },
   /*"blur .updItemNameAndPrice": function() {
     Session.set("editedItem", "");
-  }*/
+  }*
 });
 
 
@@ -367,7 +367,7 @@ class PizzaDayEvent {
 }
 
 pizzaDay= new PizzaDayEvent();
-*/
+*
 
 
 
@@ -469,7 +469,7 @@ Template.eventPizzaDay.helpers({
   },
   /*"isSomeItemsInOrder": function() {
     var userOrder=
-  }*/
+  }*
 });
 Template.eventPizzaDay.events({
   "click .inc": function() {

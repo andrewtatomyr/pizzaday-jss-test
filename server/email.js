@@ -19,7 +19,7 @@ Meteor.methods({
 
   renderEmailHtml: function(userName, total$, order, eventDate, eventManager) {
     //var html = SSR.render("emailText", {username: "arunoda"});
-    var html = SSR.render("emailHtml", {
+    var html= SSR.render("emailHtml", {
       userName,
       total$,
       order,
