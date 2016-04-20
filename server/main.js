@@ -243,7 +243,7 @@ Meteor.methods({
     Menu.update(itemId, {$inc: {"coupons": incDec}});
   },
   "incItemCount": function(group, itemId) {
-    console.log("! inc: "+itemId);
+    //console.log("! inc: "+itemId);
 
     Participants.update(
       {
@@ -257,7 +257,7 @@ Meteor.methods({
     );
   },
   "delItemFromOrder": function(group, itemId) {
-    console.log("! del: "+itemId);
+    //console.log("! del: "+itemId);
 
     Participants.update(
       {
@@ -361,20 +361,20 @@ Meteor.methods({
 
       //sending emails:
 
-      var cc= Groups.findOne({"groupName": group}.creator);
-
+      var eventManager= Groups.findOne({"groupName": group}).creator;
+      var eventDate= Events.findOne({"group": group}).eventDate;
 
       for (var usr in pp) { //sending emails
         /*let order= "";
         for (var itm in pp[usr].order) {
           order+= "> "+pp[usr].order[itm].itemName+" x "+pp[usr].order[itm].count+"\n";
         }*/
-        var text= Meteor.call("renderEmailText", total$[usr], pp[usr].order);
+        var html= Meteor.call("renderEmailText", pp[usr].name, total$[usr], pp[usr].order, eventDate, eventManager);
         Meteor.call("sendEmail",
           pp[usr].email,
           "event@pizzaday-jss-test.herokuapp.com",
           "Event in '"+group+"'",
-          text //"Your order:"+"\n"+order+"\n"+"Total cost: $"+total$[usr]
+          html //"Your order:"+"\n"+order+"\n"+"Total cost: $"+total$[usr]
         )
 
       }
@@ -386,20 +386,7 @@ Meteor.methods({
     //*/
 
   },
-  "sendEmail": function(to, from, subject, text) {
-    //check([to, from, subject, text], [String]);
 
-    // Let other method calls from the same client start running,
-    // without waiting for the email sending to complete.
-    this.unblock();
-
-    Email.send({
-      to: to,
-      from: from,
-      subject: subject,
-      text: text
-    });
-  },
   /*"discardParticipation": function(group) {
     console.log(":discard");
     Participants.update({
@@ -445,10 +432,10 @@ Meteor.methods({
     Events.remove({"group": group});
     Participants.update({
       "group": group
-    },{$unset: {
+    }, {$unset: {
       orderStatus: "",
       order: ""
-    }},{multi: true});
+    }}, {multi: true});
   }
 
 
@@ -460,24 +447,6 @@ Meteor.methods({
 
 
 
-/*
-
-SSR.compileTemplate('emailText', 'Hello {{username}}, <br> Now time is: {{time}}');
-
-Template.emailText.helpers({
-  time: function() {
-    return new Date().toString();
-  }
-});
-
-
-Meteor.methods({
-  ss: function() {
-    var html = SSR.render("emailText", {username: "arunoda"});
-    console.log(":::->");
-    console.log(html);
-  }
-});
 
 
 /*
