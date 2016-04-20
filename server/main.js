@@ -87,7 +87,7 @@ Meteor.methods({
   "createGroup": function(groupName) {
     var thisUser= Meteor.user();
     if (!thisUser) return false;
-    console.log(thisUser.profile.name+" adds: "+groupName)
+    //console.log(thisUser.profile.name+" adds: "+groupName)
     if (groupName) Groups.insert({
       groupName: groupName,
       creator: thisUser.profile.name
@@ -99,7 +99,7 @@ Meteor.methods({
     var thisUser= Meteor.user();
     if (!thisUser) return false;
     var creator= Groups.findOne({"groupName": groupName}).creator;
-    console.log(thisUser.profile.name+"?=="+creator);
+    //console.log(thisUser.profile.name+"?=="+creator);
 
     //new
     var userAlreadyInGroup= Participants.findOne({"group": groupName, "name": user});
@@ -135,7 +135,7 @@ Meteor.methods({
     });
   },
   "updMenuItem": function(updItemId, updItemName, updItemPrice) {
-    console.log("! must be updtd: "+updItemId)
+    //console.log("! must be updtd: "+updItemId)
     var thisUser= Meteor.user();
     if (!thisUser) return false;
     Menu.update(updItemId, {$set: {
@@ -145,7 +145,7 @@ Meteor.methods({
 
   },
   "orderItem": function(group, itemId) {
-    console.log('! must be ordered:'+ itemId);
+    //console.log('! must be ordered:'+ itemId);
     /*var participantOrder= Events.findOne({
       "group": group,
       "eventParticipants.userName":Meteor.user().profile.name
@@ -369,7 +369,9 @@ Meteor.methods({
         for (var itm in pp[usr].order) {
           order+= "> "+pp[usr].order[itm].itemName+" x "+pp[usr].order[itm].count+"\n";
         }*/
-        var html= Meteor.call("renderEmailText", pp[usr].name, total$[usr], pp[usr].order, eventDate, eventManager);
+        var html= Meteor.call("renderEmailHtml", pp[usr].name, total$[usr], pp[usr].order, eventDate, eventManager);
+        console.log(`HTML>>`);
+        console.log(html);
         Meteor.call("sendEmail",
           pp[usr].email,
           "event@pizzaday-jss-test.herokuapp.com",

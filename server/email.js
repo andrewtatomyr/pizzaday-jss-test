@@ -1,7 +1,7 @@
 
 
 
-SSR.compileTemplate('emailText', Assets.getText('email.html'));
+SSR.compileTemplate('emailHtml', Assets.getText('email.html'));
 //'Your order:<ul>{{#each order}}<li>{{itemName}} x {{count}}</li>{{/each}}</ul> Total cost: ${{total$}}'
 
 /*
@@ -17,9 +17,9 @@ Template.emailText.helpers({
 
 Meteor.methods({
 
-  renderEmailText: function(userName, total$, order, eventDate, eventManager) {
+  renderEmailHtml: function(userName, total$, order, eventDate, eventManager) {
     //var html = SSR.render("emailText", {username: "arunoda"});
-    var text = SSR.render("emailText", {
+    var html = SSR.render("emailHtml", {
       userName,
       total$,
       order,
@@ -29,9 +29,9 @@ Meteor.methods({
     });
     //console.log(":::->");
     //console.log(html);
-    return text
+    return html
   },
-  sendEmail: function(to, from, subject, text) {
+  sendEmail: function(to, from, subject, html) {
     //check([to, from, subject, text], [String]);
 
     // Let other method calls from the same client start running,
@@ -39,10 +39,10 @@ Meteor.methods({
     this.unblock();
 
     Email.send({
-      to: to,
-      from: from,
-      subject: subject,
-      text: text
+      to,
+      from,
+      subject,
+      html
     });
   }
 });
