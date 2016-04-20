@@ -171,8 +171,8 @@ Meteor.methods({
           order+= "> "+pp[usr].order[itm].itemName+" x "+pp[usr].order[itm].count+"\n";
         }*/
         var html= Meteor.call("renderEmailHtml", pp[usr].name, total$[usr], pp[usr].order, eventDate, eventManager);
-        console.log(`HTML>>`);
-        console.log(html);
+        //console.log(`HTML>>`);
+        //console.log(html);
         Meteor.call("sendEmail",
           pp[usr].email,
           "event@pizzaday-jss-test.herokuapp.com",
