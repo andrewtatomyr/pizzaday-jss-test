@@ -29,6 +29,12 @@ Template.groups.helpers({
     console.log("[get addButton]",Session.get("addButton"));
     console.log("[get group]",Session.get("selectedGroup"));
     return Session.get("addButton");//selectedGroup===? Groups.findOne({"groupName": selectedGroup}).logoUrl || "pizzaday.png";
+  },
+  "newGroupName": function() {
+    return Session.get("newGroupName");
+  },
+  "newGroupLogo": function() {
+    return Session.get("newGroupLogo") || "add-group.png";
   }
 });
 Template.groups.events({
@@ -37,17 +43,19 @@ Template.groups.events({
     Session.set("selectedGroup", this.groupName);
     console.log(this.groupName);
     Session.set("addButton", "");
+    Session.set("newGroupName", "");
+    Session.set("newGroupLogo", "");
     //console.log(selectedGroup);
     //<<//
     //console.log("we select >> "+event.target.innerText);
   },
-  "click #groupName": function() { //selectNewGroup
+  /*"click #groupName": function() { //selectNewGroup
     //var selectedGroup= event.target.textContent
     Session.set("selectedGroup", ""); //~
     //console.log(selectedGroup);
     //<<//
     //console.log("we select >> "+event.target.innerText);
-  },
+  },*/
   "click #addButton": function() { //selectNewGroup
     //var selectedGroup= event.target.textContent
     Session.set("selectedGroup", "");
@@ -62,6 +70,18 @@ Template.groups.events({
   },
   "click #refuse": function() {
     Session.set("addButton", "");
+    Session.set("newGroupName", "");
+    Session.set("newGroupLogo", "");
+  },
+  "change #groupName": function(event) {
+    console.log(">>>>>>>event>>>>>>");
+    console.log(event);
+    Session.set("newGroupName", event.target.value);
+  },
+  "change #logoUrl": function(event) {
+    console.log(">>>>>>>event>>>>>>");
+    console.log(event);
+    Session.set("newGroupLogo", event.target.value);
   },
   "submit form": function(event) { //createGroup
     event.preventDefault();
@@ -79,6 +99,9 @@ Template.groups.events({
       alert("Group with same name already exists! Set another name please");
     } else {
       Session.set("selectedGroup", selectedGroup);
+      Session.set("addButton", "");
+      Session.set("newGroupName", "");
+      Session.set("newGroupLogo", "");
       Meteor.call("createGroup", selectedGroup, logoUrl);
 
     }
