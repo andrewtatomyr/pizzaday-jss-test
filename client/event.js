@@ -1,4 +1,4 @@
-/*
+//*
 var eventHelper= function(selectedGroup) {
   //var selectedGroup= Session.get("selectedGroup");
   var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
@@ -6,7 +6,7 @@ var eventHelper= function(selectedGroup) {
     "group": selectedGroup,
     "name": Meteor.user().profile.name
   });
-  console.log("~ePD", selectedGroup);
+  //console.log("~ePD", selectedGroup);
   var userStatusNote= user.orderStatus==="confirmed"?
     "Your Order Was Placed":
     user.orderStatus==="discarded"? "You Refused To Participate":
@@ -31,9 +31,9 @@ var eventHelper= function(selectedGroup) {
     , userStatusNote: userStatusNote //new?
   }
 }
-*/
+//*/
 
-//*
+/*
 class EventHelpers {
   /*constructor() {
 
@@ -43,7 +43,7 @@ class EventHelpers {
     var groupEvent= Events.findOne({"group": selectedGroup});
     console.log("~isActiveEvent", selectedGroup);
     return groupEvent? true: false;
-  }*/
+  }*
 
   ePD(selectedGroup) {
     //var selectedGroup= Session.get("selectedGroup");
@@ -52,7 +52,7 @@ class EventHelpers {
       "group": selectedGroup,
       "name": Meteor.user().profile.name
     });
-    console.log("~ePD", selectedGroup);
+    //console.log("~ePD", selectedGroup);
     var userStatusNote= user.orderStatus==="confirmed"?
       "Your Order Was Placed":
       user.orderStatus==="discarded"? "You Refused To Participate":
@@ -79,7 +79,7 @@ class EventHelpers {
   }
 
 }
-eventHelpers= new EventHelpers();
+eventHelpers= new EventHelpers();*/
 /*eventHelpers.prototype.isActiveEvent= function() {
   var selectedGroup= Session.get("selectedGroup");
   var groupEvent= Events.findOne({"group": selectedGroup});
@@ -97,7 +97,7 @@ Template.eventPizzaDayControls.helpers({
     return groupEvent? true: false;
   },*/
   "ePD": function() {
-    return eventHelpers.ePD(Session.get("selectedGroup"));
+    return eventHelper(Session.get("selectedGroup"));
   } /*function() {
     var selectedGroup= Session.get("selectedGroup");
     var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
@@ -128,7 +128,7 @@ Template.eventPizzaDayControls.events({
     var eventDate= event.target.eventDate.value;
     var selectedGroup= Session.get("selectedGroup");
     var eventStatus= event.target.eventStatus.value;
-    console.log("submit form->",eventDate, eventStatus);
+    //console.log("submit form->",eventDate, eventStatus);
 
     if (eventStatus==="delivered" && confirm("finish event?")) {
       //...
@@ -155,7 +155,7 @@ Template.eventPizzaDay.helpers({
   },*/
   //duplicate:
   "ePD": function() {
-    return eventHelpers.ePD(Session.get("selectedGroup"));
+    return eventHelper(Session.get("selectedGroup"));
   } /*function() {
     var selectedGroup= Session.get("selectedGroup");
     var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
@@ -195,14 +195,14 @@ Template.eventPizzaDay.events({
   "click .inc": function() {
     var selectedGroup= Session.get("selectedGroup");
 
-    console.log(this);
+    //console.log(this);
     Meteor.call("incItemCount", selectedGroup, this.itemId);
     //return groupEvent? true: false;
   },
   "click .del": function() {
     var selectedGroup= Session.get("selectedGroup");
 
-    console.log(this);
+    //console.log(this);
     Meteor.call("delItemFromOrder", selectedGroup, this.itemId);
     //return groupEvent? true: false;
   },

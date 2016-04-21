@@ -79,7 +79,9 @@ class Order {
         //console.log("]~");
       }
     }
-    this.totalCount= totalCount;
+    //???
+    //this.totalCount= totalCount;
+
 
     var usedCoupons= {}, discount= {};
     //console.log("----------->");
@@ -111,7 +113,8 @@ class Order {
           parseInt(pp[usr].order[itm].count);
       }
     }
-    this.total$= total$;
+    this.total$= total$.map( (el)=> Math.round(el*100)/100 );
+    console.log(this.total$);;
 
     var totalOrder= [];
     for (var itemId in totalCount) {
@@ -128,7 +131,7 @@ class Order {
 
   }
   getTotalCost() {
-    return this.total$.reduce( (partitialSum, el) => partitialSum + el );
+    return this.total$.reduce( (partitialSum, el)=> partitialSum + Number(el) );
   }
 }
 
@@ -332,7 +335,7 @@ Meteor.methods({
     Events.insert({
       group,
       eventDate,
-      eventStatus: "ordering",
+      eventStatus: "ordering"
 //      eventParticipants
     })
   },

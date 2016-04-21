@@ -41,16 +41,16 @@ Template.menuList.helpers({ //container
 });
 Template.menuList.events({
   "click .itemNameAndPrice": function() { //editItem
-    console.log("edit: ");
-    console.log(this);
+    //console.log("edit: ");
+    //console.log(this);
     Session.set("editedItem", this._id);
 
     //console.log(document.getElementById("editable"));
 
   },
   "click .orderItem": function() { //orderItem
-    console.log("add to order: ");
-    console.log(this);
+    //console.log("add to order: ");
+    //console.log(this);
     var selectedGroup= Session.get("selectedGroup");
 
 
@@ -58,14 +58,14 @@ Template.menuList.events({
     Meteor.call("orderItem", selectedGroup, this._id);//?
   },
   "click .addCoupon": function() { //orderItem
-    console.log("+ coupon: ");
-    console.log(this);
+    //console.log("+ coupon: ");
+    //console.log(this);
     var selectedGroup= Session.get("selectedGroup");
     Meteor.call("manageCoupons", selectedGroup, this._id, 1);//?
   },
   "click .removeCoupon": function() { //orderItem
-    console.log("- coupon: ");
-    console.log(this);
+    //console.log("- coupon: ");
+    //console.log(this);
     var selectedGroup= Session.get("selectedGroup");
     Meteor.call("manageCoupons", selectedGroup, this._id, -1);//?
   }
@@ -82,11 +82,11 @@ Template.menuList.events({
 Template.editItem.events({
   "submit form": function(event) { //editItem
     event.preventDefault();
-    console.log("saveChanges :-> ");
+    //console.log("saveChanges :-> ");
     //console.log(event.target.saveChanges);
 
     var updItemId= Session.get("editedItem"); //event.target.updItemId.value;
-    console.log(updItemId)
+    //console.log(updItemId)
     var updItemName= event.target.updItemName.value;
     var updItemPrice= event.target.updItemPrice.value;
     //var selectedGroup= Session.get("selectedGroup");

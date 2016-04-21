@@ -48,8 +48,8 @@ Template.groups.events({
     //>>// Meteor.call("addGroup", groupName);
     //>>// Session.set("selectedGroup", groupName);
     var selectedGroup= event.target.groupName.value;
-    console.log(selectedGroup);
-    console.log(Groups.findOne({"groupName": selectedGroup}));
+    //console.log(selectedGroup);
+    //console.log(Groups.findOne({"groupName": selectedGroup}));
 
     if ( Groups.findOne({"groupName": selectedGroup}) ) {
       alert("Group with same name already exists! Set another name please");
@@ -88,7 +88,7 @@ Template.groupControls.helpers({ //container
     if (selectedGroup) {
       var groupCreator= Groups.findOne({"groupName": selectedGroup}).creator;
       var thisUser= Meteor.user();
-      console.log("private: "+groupCreator);
+      //console.log("private: "+groupCreator);
     }
 
     return selectedGroup && thisUser && thisUser.profile.name===groupCreator? "": "hidden";
@@ -158,14 +158,14 @@ Template.participantsList.helpers({
   },
   "selectedGroup": function() {
     var selectedGroup= Session.get("selectedGroup");
-    console.log(selectedGroup);
+    //console.log(selectedGroup);
     return selectedGroup;
   }
 });
 Template.participantsList.events({
   //del
   "click .removeParticipant": function() {
-    console.log(this)
+    //console.log(this)
 
     Meteor.call("removeParticipant", this._id);
   }
