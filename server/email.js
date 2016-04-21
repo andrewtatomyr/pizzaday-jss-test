@@ -17,15 +17,17 @@ Template.emailText.helpers({
 
 Meteor.methods({
 
-  renderEmailHtml: function(userName, total$, order, eventDate, eventManager) {
+  renderEmailHtml: function(eventList/*userName, total$, order,, totalOrder *, eventDate, eventManager*/) {
     //var html = SSR.render("emailText", {username: "arunoda"});
     var html= SSR.render("emailHtml", {
-      userName,
+      eventList,
+      /*userName,
       total$,
       order,
       eventDate,
       eventManager,
-      isEventManager: userName===eventManager
+      totalOrder*/
+      isEventManager: eventList.userName===eventList.eventManager
     });
     //console.log(":::->");
     //console.log(html);

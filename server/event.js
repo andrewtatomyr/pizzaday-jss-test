@@ -44,8 +44,99 @@ class Order {
 
 //*/
 
+class Order {
+  constructor(group) {
+    var pp= Participants.find({ //new?
+      "group": group,
+      "orderStatus": "confirmed"
+    }).fetch();
+    this.pp= pp;
+
+    //console.log('--------------');
+    //console.log(pp);
+    //console.log('--------------');
+    var totalCount= {}; //ordered  items
+    for (var usr in pp) {
+      //console.log("////////////");
+      //console.log(pp[usr]);
+      for (var itm in pp[usr].order) {
+        /*if (totalCount[pp[usr].order[itm].itemId]) {
+          totalCount[pp[usr].order[itm].itemId]+= parseInt(pp[usr].order[itm].count);
+        } else {
+          totalCount[pp[usr].order[itm].itemId]= parseInt(pp[usr].order[itm].count);
+        }*/
+        var itemId= pp[usr].order[itm].itemId;
+        var itemCount= parseInt(pp[usr].order[itm].count);
+        //console.log(`:-: usr=${usr} : itm:${itemId} >> ${itemCount} >> ${totalCount[itemId]}`);
+        //console.log("?==",!itemId);
+        //if (!itemId) continue;
+        if (isNaN(totalCount[itemId])) totalCount[itemId]= 0; //init
+        totalCount[itemId]+= itemCount;
+        //console.log(usr+" | "+itm+" >> "+itemCount, totalCount[itemId]);
+        //console.log("~[");
+        //console.log();
+        //console.log(totalCount);
+        //console.log("]~");
+      }
+    }
+    this.totalCount= totalCount;
+
+    var usedCoupons= {}, discount= {};
+    //console.log("----------->");
+    //console.log(totalCount);
+    for (var itemId in totalCount) {
+      //?
+      //if (!itemId) continue;
+      //console.log(itemId+" >> "+ totalCount[itemId]);
+      var coupons= parseInt( Menu.findOne(itemId).coupons );
+      usedCoupons[itemId]= Math.min(totalCount[itemId], coupons);
+      Meteor.call("manageCoupons", group, itemId, -usedCoupons[itemId]);
+      discount[itemId]= usedCoupons[itemId] / totalCount[itemId];
+
+    }
+    //this.usedCoupons= usedCoupons;
+    //this.discount= discount;
+    //*/
 
 
+    var total$= []; //total amount $
+    for (var usr in pp) {
+      total$[usr]= 0;
+
+      for (var itm in pp[usr].order) {
+        var itemId= pp[usr].order[itm].itemId;
+        total$[usr]+=
+          parseFloat(pp[usr].order[itm].itemPrice) *
+          (1 - discount[itemId]) *
+          parseInt(pp[usr].order[itm].count);
+      }
+    }
+    this.total$= total$;
+
+    var totalOrder= [];
+    for (var itemId in totalCount) {
+      //?
+      //if (!itemId) continue;
+
+      totalOrder.push({
+        itemName: Menu.findOne(itemId).itemName,
+        itemCount: totalCount[itemId]
+      });
+    }
+    this.totalOrder= totalOrder;
+
+
+  }
+  getTotalCost() {
+    return this.total$.reduce( (partitialSum, el) => partitialSum + el );
+  }
+}
+
+/*
+Array.prototype.sum= function() {
+  return this.reduce( (partitialSum, el) => partitialSum + el )
+}
+*/
 
 Meteor.methods({
 
@@ -99,7 +190,7 @@ Meteor.methods({
     if (!Participants.findOne({
       "group": group,
       "orderStatus": undefined
-    })) { //no one has undefined status 
+    })) { //no one has undefined status
       Events.update({
         "group": group
       }, {$set: {
@@ -109,12 +200,19 @@ Meteor.methods({
 
       //calculatings:
       //?????????????????????????
+
+      var eventOrder= new Order(group);
+      //console.log('========================');
+      //console.log(eventOrder.pp[0]);
+      //console.log('========================');
+      //--var pp= order.pp;
+/*
       var pp= Participants.find({ //new?
         "group": group,
         "orderStatus": "confirmed"
       }).fetch();
-
-
+*/
+/*
       var totalCount= {}; //ordered  items
       for (var usr in pp) {
         for (var itm in pp[usr].order) {
@@ -122,7 +220,7 @@ Meteor.methods({
             totalCount[pp[usr].order[itm].itemId]+= parseInt(pp[usr].order[itm].count);
           } else {
             totalCount[pp[usr].order[itm].itemId]= parseInt(pp[usr].order[itm].count);
-          }*/
+          }*
           var itemId= pp[usr].order[itm].itemId;
           var itemCount= parseInt(pp[usr].order[itm].count);
           if (isNaN(totalCount[itemId])) totalCount[itemId]= 0; //init
@@ -131,7 +229,10 @@ Meteor.methods({
 
         }
       }
+*/
 
+      //--var totalCount= order.totalCount;
+/*
       //var menu= Menu.find({"canBeOrderedIn": group}).fetch();
       var usedCoupons= {}, discount= {};
       for (var itemId in totalCount) {
@@ -142,7 +243,7 @@ Meteor.methods({
         console.log(itemId+" >> "+ totalCount[itemId],"[",coupons,discount[itemId],"]");
 
       }
-      //*/
+      //*
 
 
       var total$= []; //total amount $
@@ -158,24 +259,46 @@ Meteor.methods({
         }
       }
 
+      totalOrder= [];
+      for (var itemId in totalCount) {
+        totalOrder.push({
+          itemName: Menu.findOne(itemId).itemName,
+          itemCount: totalCount[itemId]
+        });
+      }
+*/
 
 
       //sending emails:
 
-      var eventManager= Groups.findOne({"groupName": group}).creator;
-      var eventDate= Events.findOne({"group": group}).eventDate;
+      //var eventManager= Groups.findOne({"groupName": group}).creator;
+      //var eventDate= Events.findOne({"group": group}).eventDate;
 
-      for (var usr in pp) { //sending emails
+      for (var usr in eventOrder.pp) { //sending emails
         /*let order= "";
         for (var itm in pp[usr].order) {
           order+= "> "+pp[usr].order[itm].itemName+" x "+pp[usr].order[itm].count+"\n";
         }*/
-        var html= Meteor.call("renderEmailHtml", pp[usr].name, total$[usr], pp[usr].order, eventDate, eventManager);
+        //console.log(">_");
+        //console.log();
+        var eventList= {
+          eventDate: Events.findOne({"group": group}).eventDate,
+          eventManager: Groups.findOne({"groupName": group}).creator,
+          userName: eventOrder.pp[usr].name,
+          total$: eventOrder.total$[usr],
+          order: eventOrder.pp[usr].order,
+          totalOrder: eventOrder.totalOrder,
+          eventTotalCost: eventOrder.getTotalCost() // eventOrder.total$.sum()
+
+        }
+        //console.log(usr+" >_");
+        //console.log(eventList);
+        var html= Meteor.call("renderEmailHtml", eventList);
         //console.log(`HTML>>`);
         //console.log(html);
         Meteor.call("sendEmail",
-          pp[usr].email,
-          "event@pizzaday-jss-test.herokuapp.com",
+          eventOrder.pp[usr].email,
+          "no-replay@pizzaday-jss-test.herokuapp.com",
           "Event in '"+group+"'",
           html //"Your order:"+"\n"+order+"\n"+"Total cost: $"+total$[usr]
         )
