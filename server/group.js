@@ -6,9 +6,13 @@ Meteor.methods({
     //console.log(thisUser.profile.name+" adds: "+groupName)
     if (groupName) Groups.insert({
       groupName: groupName,
-      creator: thisUser.profile.name
+      creator: thisUser.profile.name,
+      logoUrl: "no-image.png"
     });
     //Session.set("selectedGroup", groupName);
+  },
+  setLogoUrl: function(groupName, logoUrl) {
+    Groups.update({"groupName": groupName}, {$set: {"logoUrl": logoUrl}});
   },
   addParticitant: function(user, groupName) {
     //console.log("add: "+user)

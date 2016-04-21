@@ -7,7 +7,7 @@
   <div>
     {{#each group}}
     <!--a href="#{{groupName}}" class="group {{selectedClass}}"-->
-      <div class="group logo" style="background-image:url(pizzaday.png)">
+      <div class="group logo" style="background-image:url({{logoUrl}})">
         <div class="title {{selectedClass}}">{{groupName}}</div>
       </div>
     <!--/a-->
@@ -26,6 +26,7 @@
 
 <template name="groupControls">
   <div class="{{creatorClass}}">
+    {{> groupLogo}}
     {{> participantsList}}
     {{> usersList}}
     {{> eventPizzaDayControls}}
@@ -38,10 +39,17 @@
 </template>
 
 
+<template name="groupLogo">
+  <form class="" action="" method="post">
+    <input type="text" name="logoUrl" value="{{logoUrl}}" placeholder="Place Image URL">
+    <input type="submit" value="Set Group Logo">
+  </form>
+</template>
+
 
 
 <template name="usersList">
-  <form class="" action="index.html" method="post">
+  <form class="" action="" method="post">
     <!-- h2>Registered Users:</h2 -->
     <select name="selectedUser">
       {{#each user}}

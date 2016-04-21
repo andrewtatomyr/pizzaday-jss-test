@@ -24,6 +24,11 @@ Template.groups.helpers({
     //console.log(groupName+"?=="+selectedGroup);
     return (groupName==selectedGroup)? "selected": "";
   }
+  /*,
+  logoUrl: function() {
+    var selectedGroup= Session.get("selectedGroup");
+    return selectedGroup && ? Groups.findOne({"groupName": selectedGroup}).logoUrl || "pizzaday.png";
+  }*/
 });
 Template.groups.events({
   "click .group": function(/*event*/) { //selectGroup
@@ -122,6 +127,23 @@ Template.groupControls.helpers({ //container
 
 
 
+Template.groupLogo.helpers({
+  logoUrl: function() {
+    return Groups.findOne({"groupName": Session.get("selectedGroup")}).logoUrl;
+  }
+});
+Template.groupLogo.events({
+  "submit form": function() {
+    event.preventDefault();
+    //var selectedUser= event.target.selectedUser.value;
+    //var selectedGroup= ;
+    //alert(selectedUser+"@"+/*groupName*/selectedGroup)
+    Meteor.call("setLogoUrl", Session.get("selectedGroup"), event.target.logoUrl.value);
+  }
+});
+
+
+
 Template.usersList.helpers({
   "user": function() {
     //var user= Meteor.user().profile.name; //Meteor.userId();
@@ -130,9 +152,9 @@ Template.usersList.helpers({
   },
   /**/
   "selectedGroup": function() { //???
-    var selectedGroup= Session.get("selectedGroup");
+    //var selectedGroup= Session.get("selectedGroup");
     //console.log("selectedGroup: "+selectedGroup);
-    return selectedGroup
+    return Session.get("selectedGroup")
   },
   /**/
 });
