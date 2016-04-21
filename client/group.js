@@ -26,9 +26,10 @@ Template.groups.helpers({
   }
 });
 Template.groups.events({
-  "click .group": function(event) { //selectGroup
-    var selectedGroup= event.target.textContent
-    Session.set("selectedGroup", selectedGroup);
+  "click .group": function(/*event*/) { //selectGroup
+    //var selectedGroup= this.groupName
+    Session.set("selectedGroup", this.groupName);
+    console.log(this.groupName);
     //console.log(selectedGroup);
     //<<//
     //console.log("we select >> "+event.target.innerText);

@@ -1,9 +1,29 @@
 /* CSS declarations go here */
 
+.group {
+
+  vertical-align: bottom;
+}
+
+.title {
+  color: lightgrey;
+  background: rgba(100,100,100,0.75);
+}
+
 .selected {
-  background: yellow;
+  color: white;
+  background: black;
 }
 
 .hidden {
   display: none;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  /*text-align: center;*/
+
+  display: inline-block;
 }

@@ -4,9 +4,15 @@
 
 <template name="groups">
   <h2>Select Group or Create a New One</h2>
-  {{#each group}}
-    <a href="#{{groupName}}" class="group {{selectedClass}}">{{groupName}}</a>
-  {{/each}}
+  <div>
+    {{#each group}}
+    <!--a href="#{{groupName}}" class="group {{selectedClass}}"-->
+      <div class="group logo" style="background-image:url(pizzaday.png)">
+        <div class="title {{selectedClass}}">{{groupName}}</div>
+      </div>
+    <!--/a-->
+    {{/each}}
+  </div>
   {{#if currentUser}}
     <form class="" action="" method="post">
       <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
