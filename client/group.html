@@ -4,7 +4,7 @@
 
 <template name="groups">
   <h2>Select Group or Create a New One</h2>
-  <div>
+  <div id=groupContainer>
     {{#each group}}
     <!--a href="#{{groupName}}" class="group {{selectedClass}}"-->
       <div class="group logo" style="background-image:url({{logoUrl}})">
@@ -12,21 +12,42 @@
       </div>
     <!--/a-->
     {{/each}}
+    {{#if currentUser}}
+      <div id=addButton class="logo" style="background-image:url(add-group.png)">
+        <div class="title {{selectedClass}}">{{groupName}}</div>
+
+      </div>
+
+      {{#if addButton}}
+        <div id=newGroupNameAndLogo class="logo" >
+          <form class="" action="" method="post">
+            <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
+            <input id=logoUrl type="url" name="logoUrl" value="" placeholder="Place Image URL" required>
+            <input type="submit" name="createGroup" value="Create New Group">
+            <input id=refuse type="button" name="refuse" value="Refuse">
+          </form>
+        </div>
+      {{/if}}
+
+
+
+
+    {{/if}}
   </div>
-  {{#if currentUser}}
-    <form class="" action="" method="post">
-      <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
-      <input type="submit" name="createGroup" value="Create New Group">
-    </form>
-  {{/if}}
+
 </template>
 
-
+<!-- template name="groupLogo">
+  <form class="" action="" method="post">
+    <input type="text" name="logoUrl" value="{{logoUrl}}" placeholder="Place Image URL">
+    <input type="submit" value="Set Group Logo">
+  </form>
+</template -->
 
 
 <template name="groupControls">
   <div class="{{creatorClass}}">
-    {{> groupLogo}}
+
     {{> participantsList}}
     {{> usersList}}
     {{> eventPizzaDayControls}}
@@ -38,13 +59,6 @@
   </div>
 </template>
 
-
-<template name="groupLogo">
-  <form class="" action="" method="post">
-    <input type="text" name="logoUrl" value="{{logoUrl}}" placeholder="Place Image URL">
-    <input type="submit" value="Set Group Logo">
-  </form>
-</template>
 
 
 

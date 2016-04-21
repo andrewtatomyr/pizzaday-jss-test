@@ -2,7 +2,7 @@
 
 .group {
 
-  vertical-align: bottom;
+
 }
 
 .title {
@@ -24,6 +24,10 @@
   height: 100px;
   background-size: cover;
   /*text-align: center;*/
-
+  vertical-align: bottom;
   display: inline-block;
+}
+
+#newGroupNameAndLogo {
+  
 }

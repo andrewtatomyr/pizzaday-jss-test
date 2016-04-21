@@ -1,7 +1,14 @@
 //*
 var eventHelper= function(selectedGroup) {
+  if (!selectedGroup) return undefined;
+
+
   //var selectedGroup= Session.get("selectedGroup");
-  var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
+  var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event in group (other dropped)
+  if (!groupEvent) {
+    return {isActiveEvent: false}
+  }
+
   var user= Participants.findOne({
     "group": selectedGroup,
     "name": Meteor.user().profile.name
@@ -16,7 +23,7 @@ var eventHelper= function(selectedGroup) {
   return {
     _id: groupEvent._id,
     //new:
-    isActiveEvent: groupEvent? true: false,
+    isActiveEvent: /*groupEvent?*/ true/*: false*/,
     eventStatus: groupEvent.eventStatus,
 
     isOrdering: groupEvent.eventStatus==="ordering"? "checked": "",

@@ -1,19 +1,19 @@
 
 Meteor.methods({
-  createGroup: function(groupName) {
+  createGroup: function(groupName, logoUrl) {
     var thisUser= Meteor.user();
     if (!thisUser) return false;
     //console.log(thisUser.profile.name+" adds: "+groupName)
     if (groupName) Groups.insert({
       groupName: groupName,
-      creator: thisUser.profile.name,
-      logoUrl: "no-image.png"
+      logoUrl: logoUrl,
+      creator: thisUser.profile.name
     });
     //Session.set("selectedGroup", groupName);
   },
-  setLogoUrl: function(groupName, logoUrl) {
+  /*setLogoUrl: function(groupName, logoUrl) {
     Groups.update({"groupName": groupName}, {$set: {"logoUrl": logoUrl}});
-  },
+  },*/
   addParticitant: function(user, groupName) {
     //console.log("add: "+user)
     var thisUser= Meteor.user();

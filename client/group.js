@@ -23,28 +23,45 @@ Template.groups.helpers({
     var groupName= this.groupName; //?
     //console.log(groupName+"?=="+selectedGroup);
     return (groupName==selectedGroup)? "selected": "";
+  },
+  "addButton": function() {
+
+    console.log("[get addButton]",Session.get("addButton"));
+    console.log("[get group]",Session.get("selectedGroup"));
+    return Session.get("addButton");//selectedGroup===? Groups.findOne({"groupName": selectedGroup}).logoUrl || "pizzaday.png";
   }
-  /*,
-  logoUrl: function() {
-    var selectedGroup= Session.get("selectedGroup");
-    return selectedGroup && ? Groups.findOne({"groupName": selectedGroup}).logoUrl || "pizzaday.png";
-  }*/
 });
 Template.groups.events({
   "click .group": function(/*event*/) { //selectGroup
     //var selectedGroup= this.groupName
     Session.set("selectedGroup", this.groupName);
     console.log(this.groupName);
+    Session.set("addButton", "");
     //console.log(selectedGroup);
     //<<//
     //console.log("we select >> "+event.target.innerText);
   },
   "click #groupName": function() { //selectNewGroup
     //var selectedGroup= event.target.textContent
-    Session.set("selectedGroup", "");
+    Session.set("selectedGroup", ""); //~
     //console.log(selectedGroup);
     //<<//
     //console.log("we select >> "+event.target.innerText);
+  },
+  "click #addButton": function() { //selectNewGroup
+    //var selectedGroup= event.target.textContent
+    Session.set("selectedGroup", "");
+    Session.set("addButton", "true");
+    //$("#newGroupNameAndLogo").toggle();
+    console.log("addButton","group["+Session.get("selectedGroup")+"]","addB["+Session.get("addButton")+"]");
+
+
+    //console.log(selectedGroup);
+    //<<//
+    //console.log("we select >> "+event.target.innerText);
+  },
+  "click #refuse": function() {
+    Session.set("addButton", "");
   },
   "submit form": function(event) { //createGroup
     event.preventDefault();
@@ -54,6 +71,7 @@ Template.groups.events({
     //>>// Meteor.call("addGroup", groupName);
     //>>// Session.set("selectedGroup", groupName);
     var selectedGroup= event.target.groupName.value;
+    var logoUrl= event.target.logoUrl.value;
     //console.log(selectedGroup);
     //console.log(Groups.findOne({"groupName": selectedGroup}));
 
@@ -61,7 +79,7 @@ Template.groups.events({
       alert("Group with same name already exists! Set another name please");
     } else {
       Session.set("selectedGroup", selectedGroup);
-      Meteor.call("createGroup", selectedGroup);
+      Meteor.call("createGroup", selectedGroup, logoUrl);
 
     }
 
@@ -126,10 +144,13 @@ Template.groupControls.helpers({ //container
 
 
 
-
+/*
 Template.groupLogo.helpers({
   logoUrl: function() {
-    return Groups.findOne({"groupName": Session.get("selectedGroup")}).logoUrl;
+    var selectedGroup= Session.get("selectedGroup");
+    if (selectedGroup) {
+      return Groups.findOne({"groupName": selectedGroup}).logoUrl
+    }
   }
 });
 Template.groupLogo.events({
@@ -137,11 +158,10 @@ Template.groupLogo.events({
     event.preventDefault();
     //var selectedUser= event.target.selectedUser.value;
     //var selectedGroup= ;
-    //alert(selectedUser+"@"+/*groupName*/selectedGroup)
     Meteor.call("setLogoUrl", Session.get("selectedGroup"), event.target.logoUrl.value);
   }
 });
-
+*/
 
 
 Template.usersList.helpers({
