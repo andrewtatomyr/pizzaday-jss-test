@@ -12,13 +12,16 @@
   </ul>
   <h3>You should pay to {{eventList.eventManager}} ${{eventList.total$}}</h3>
   {{#if isEventManager}}
-    <h3>Total Order</h3>
+    <hr/>
+    <h2>Total Order</h2>
     <ul>
       {{#each eventList.totalOrder}}
         <li>{{itemName}} x {{itemCount}}</li>
       {{/each}}
     </ul>
-    --total cash: {{eventList.eventTotalCost}}
+    <h3>
+      Total Cost: ${{eventList.eventTotalCost}}
+    </h3>
   {{/if}}
 
 </template>
