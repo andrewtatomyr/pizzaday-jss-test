@@ -7,10 +7,12 @@
   {{#each group}}
     <a href="#{{groupName}}" class="group {{selectedClass}}">{{groupName}}</a>
   {{/each}}
-  <form class="" action="" method="post">
-    <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
-    <input type="submit" name="createGroup" value="Create New Group">
-  </form>
+  {{#if currentUser}}
+    <form class="" action="" method="post">
+      <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
+      <input type="submit" name="createGroup" value="Create New Group">
+    </form>
+  {{/if}}
 </template>
 
 
@@ -54,8 +56,8 @@
   <!-- form action="" method="post" -->
     <ul>
       {{#each participant}}
-        <li  >
-          {{name}} ({{group}})
+        <li>
+          {{name}}
           <input type="button" class="removeParticipant" value="Remove">
         </li>
       {{/each}}

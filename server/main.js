@@ -59,7 +59,7 @@ Meteor.publish("groups", function() {
   //var currentUser= Meteor.userId();
 
   //console.log(this.userId);
-  if (this.userId) return Groups.find()//{"author": currentUser})
+  /*if (this.userId)*/ return Groups.find()//{"author": currentUser})
 });
 Meteor.publish("participants", function(/*selectedGroup*/) {
   //var thisUser= this.user();

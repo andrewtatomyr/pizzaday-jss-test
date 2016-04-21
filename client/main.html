@@ -5,6 +5,7 @@
 <body>
   <h1>Pizza Day!</h1>
   {{> loginButtons}}
+  {{> groups}}
   {{> afterSignIn}}
 
 
@@ -18,7 +19,7 @@
 
 <template name="afterSignIn">
   <div class="{{signedClass}}" >
-    {{> groups}}
+
     {{> groupControls}}
   </div>
 

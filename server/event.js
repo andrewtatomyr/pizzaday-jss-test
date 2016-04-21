@@ -99,7 +99,7 @@ Meteor.methods({
     if (!Participants.findOne({
       "group": group,
       "orderStatus": undefined
-    })) {
+    })) { //no one has undefined status 
       Events.update({
         "group": group
       }, {$set: {
