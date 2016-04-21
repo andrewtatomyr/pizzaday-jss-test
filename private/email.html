@@ -2,18 +2,23 @@
 
 
 <template name="emailHtml">
-  <h2>Hi, {{userName}}!</h2>
-  <p>Do'nt miss Pizza Day Event at {{eventDate}}</p>
+  <h2>Hi, {{eventList.userName}}!</h2>
+  <p>Do'nt miss Pizza Day Event at {{eventList.eventDate}}</p>
   <p>Your order:</p>
   <ul>
-    {{#each order}}
+    {{#each eventList.order}}
     <li>{{itemName}} x {{count}}</li>
     {{/each}}
   </ul>
-  <h3>You should pay to {{eventManager}} ${{total$}}</h3>
+  <h3>You should pay to {{eventList.eventManager}} ${{eventList.total$}}</h3>
   {{#if isEventManager}}
-    --total order
-    --total cash
+    <h3>Total Order</h3>
+    <ul>
+      {{#each eventList.totalOrder}}
+        <li>{{itemName}} x {{itemCount}}</li>
+      {{/each}}
+    </ul>
+    --total cash: {{eventList.eventTotalCost}}
   {{/if}}
 
 </template>

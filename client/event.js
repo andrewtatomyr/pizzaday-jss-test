@@ -1,5 +1,5 @@
 /*
-var _ePD= function(selectedGroup) {
+var eventHelper= function(selectedGroup) {
   //var selectedGroup= Session.get("selectedGroup");
   var groupEvent= Events.findOne({"group": selectedGroup}); //just one active event (other dropped)
   var user= Participants.findOne({
