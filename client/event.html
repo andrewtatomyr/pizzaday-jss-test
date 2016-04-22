@@ -1,5 +1,6 @@
 <template name="eventPizzaDayControls">
   <h3>Manage 'Pizza Day' Event</h3>
+  <hr>
   {{#if ePD.isActiveEvent}}
     <form class="" action="" method="post">
       <div class="">
@@ -25,6 +26,7 @@
 <template name="eventPizzaDay">
   {{#if ePD.isActiveEvent}}
     <h2>There is 'Pizza Day' Event Coming at {{ePD.eventDate}} ({{ePD.eventStatus}})!</h2>
+    <hr>
     {{#if ePD.isOrdering}}{{#unless ePD.userOrderStatus}}
       <ul>
         {{#each ePD.userOrder}}
@@ -44,5 +46,6 @@
     <p>{{ePD.userStatusNote}}</p>
   {{else}}
     <h2>No Active Events</h2>
+    <hr>
   {{/if}}
 </template>

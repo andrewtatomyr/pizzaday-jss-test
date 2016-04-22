@@ -1,5 +1,6 @@
 <template name="menuList">
   <h2>Menu</h2>
+  <hr>
   <ul>
     {{#each menuItem}}
       <li class="menuItem" >
@@ -41,8 +42,9 @@
 
 <template name="createMenuItem">
   <form action="" method="post">
-    <input name="itemName" value="" placeholder="Item Name" required class="itemOptions">
-    $<input type="number" step="0.01" name="itemPrice" value="" placeholder="Item Price" required class="itemOptions">
+    <h4>Create New Menu Item</h4>
+    <input name="itemName" value="" placeholder="Item Name" required class="itemOptions"><br>
+    $<input type="number" step="0.01" name="itemPrice" value="" placeholder="Item Price" required class="itemOptions"><br>
     <input type="submit" name="createMenuItem" value="Create New Menu Item">
   </form>
 </template>

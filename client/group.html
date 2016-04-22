@@ -14,10 +14,10 @@
       {{#if addButton}}
         <div id=newGroupNameAndLogo class="logo" >
           <form class="" action="" method="post">
-            <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required>
-            <input id=logoUrl type="url" name="logoUrl" value="" placeholder="Place Image URL" required>
-            <input type="submit" name="createGroup" value="Create New Group">
-            <input id=refuse type="button" name="refuse" value="Refuse">
+            <input id=groupName name="groupName" value="" placeholder="New Group Name ({{currentUser}})" required class="width100">
+            <input id=logoUrl type="url" name="logoUrl" value="" placeholder="Place Image URL" required class="width100">
+            <input type="submit" name="createGroup" value="Create New" class="width100">
+            <input id=refuse type="button" name="refuse" value="Refuse" class="width100">
           </form>
         </div>
       {{/if}}
@@ -29,14 +29,15 @@
 
 
 <template name="groupControls">
-  <div class="{{creatorClass}}">
-    <h2>Group Controls</h2>
+  <div class="groupManager {{creatorClass}}">
+    <h2>Group Management</h2>
+    <hr>
     <div>
-      <div class="block leftBlock">
+      <div class="block ">
         {{> participantsList}}
         {{> usersList}}
       </div>
-      <div class="block rightBlock">
+      <div class="block ">
         {{> eventPizzaDayControls}}
       </div>
     </div>
@@ -56,6 +57,7 @@
 
 <template name="participantsList">
   <h3>Users In '{{selectedGroup}}' Group</h3>
+  <hr>
     <ul>
       {{#each participant}}
         <li>

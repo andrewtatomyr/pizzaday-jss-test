@@ -2,6 +2,9 @@
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
 }
 
 h1 {
@@ -16,6 +19,16 @@ h1 {
 .loginControls {
   float: right;
   margin-top: 25px;
+}
+
+header, footer, .groupManager {
+  background: lightgrey;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+header {
+ text-align: left; 
 }
 
 footer {
@@ -37,15 +50,16 @@ ul {
 .title {
   color: lightgrey;
   background: rgba(100,100,100,0.75);
+  padding: 3px;
 }
 
 .selected {
   color: white;
-  background: black;
+  background: green;
 }
 
-.not-participate {
-  opacity: 0.5;
+.width100 {
+  width: 100%;
 }
 
 .hidden {
