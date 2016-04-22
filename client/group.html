@@ -30,17 +30,41 @@
 
 <template name="groupControls">
   <div class="{{creatorClass}}">
-    {{> participantsList}}
-    {{> usersList}}
-    {{> eventPizzaDayControls}}
+    <h2>Group Controls</h2>
+    <div>
+      <div class="block leftBlock">
+        {{> participantsList}}
+        {{> usersList}}
+      </div>
+      <div class="block rightBlock">
+        {{> eventPizzaDayControls}}
+      </div>
+    </div>
   </div>
   <div class="{{participantClass}}">
-    {{> menuList}}
-    {{> createMenuItem}}
-    {{> eventPizzaDay}}
+    <div class="block leftBlock">
+      {{> menuList}}
+      {{> createMenuItem}}
+    </div>
+    <div class="block rightBlock">
+      {{> eventPizzaDay}}
+    </div>
   </div>
 </template>
 
+
+
+<template name="participantsList">
+  <h3>Users In '{{selectedGroup}}' Group</h3>
+    <ul>
+      {{#each participant}}
+        <li>
+          {{name}}
+          <input type="button" class="removeParticipant" value="Remove">
+        </li>
+      {{/each}}
+    </ul>
+</template>
 
 
 
@@ -53,20 +77,4 @@
     </select>
     <input type="submit" name="addUserToGroup" value="Add User to '{{selectedGroup}}'">
   </form>
-</template>
-
-
-
-
-
-<template name="participantsList">
-  <h2>Users In '{{selectedGroup}}' Group</h2>
-    <ul>
-      {{#each participant}}
-        <li>
-          {{name}}
-          <input type="button" class="removeParticipant" value="Remove">
-        </li>
-      {{/each}}
-    </ul>
 </template>

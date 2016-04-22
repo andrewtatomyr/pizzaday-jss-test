@@ -1,8 +1,37 @@
 /* CSS declarations go here */
 
-.group {
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
+h1 {
+  display: inline-block;
+}
 
+.siteLogo {
+  width: 25px;
+  height: 25px;
+}
+
+.loginControls {
+  float: right;
+  margin-top: 25px;
+}
+
+footer {
+  padding: 50px;
+  text-align: center;
+}
+
+.block {
+  padding: 10px;
+  width: 46%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+ul {
+  text-align: left;
 }
 
 .title {
@@ -32,6 +61,6 @@
   display: inline-block;
 }
 
-#newGroupNameAndLogo {
-
+.groupControls {
+  text-align: center;
 }
