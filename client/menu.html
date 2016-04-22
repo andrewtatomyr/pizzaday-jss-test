@@ -1,4 +1,3 @@
-
 <template name="menuList">
   <h2>Menu</h2>
   <ul>
@@ -6,7 +5,7 @@
       <li class="menuItem" >
         <span class="{{visibleClass.show}}">
           <span class="itemNameAndPrice" title="Click To Edit">
-            {{itemName}} (${{itemPrice}}) 
+            {{itemName}} (${{itemPrice}})
           </span>
           <button class="orderItem {{eventClass}}">Add to Order</button>
           {{#if coupons}}
@@ -25,35 +24,15 @@
   </ul>
 </template>
 
-<!--template name="orderItem">
-  <!- form action="" method="post" -->
-    <!-- span class="{{visibleClass.show}}" ->
-      <span class="itemNameAndPrice">
-        {{itemName}} (${{itemPrice}}) [{{_id}}]
-      </span>
-      <button id="orderItem" class="{{eventClass}}">Add to Order</button>
-      <!- input type="number" name="itemCount" value="1">
-      <input type="hidden" name="itemId" value="{{_id}}">
-      <input type="submit" name="orderItem" value="Order Item" -->
-    <!-- /span -->
-  <!-- /form -->
-<!-- /template -->
-
-
 
 <template name="editItem">
   <form action="" method="post">
-    <!-- span class="{{visibleClass.edit}}" -->
     <span class="updItemNameAndPrice">
       <input name="updItemName" value="{{itemName}}">
       $<input type="number" step="0.01" name="updItemPrice" value="{{itemPrice}}">
     </span>
-    <!-- input type="hidden" name="updItemId" value="{{_id}}" -->
     <input type="submit" name="saveChanges" value="Save Changes">
     <input type="button" class="discardChanges" value="Discard Changes">
-
-    <!-- button id=discardChanges >Discard Changes</button -->
-    <!-- /span -->
   </form>
 </template>
 
@@ -62,8 +41,8 @@
 
 <template name="createMenuItem">
   <form action="" method="post">
-    <input name="itemName" value="" placeholder="Item Name" required>
-    $<input type="number" step="0.01" name="itemPrice" value="" placeholder="Item Price" required>
+    <input name="itemName" value="" placeholder="Item Name" required class="itemOptions">
+    $<input type="number" step="0.01" name="itemPrice" value="" placeholder="Item Price" required class="itemOptions">
     <input type="submit" name="createMenuItem" value="Create New Menu Item">
   </form>
 </template>

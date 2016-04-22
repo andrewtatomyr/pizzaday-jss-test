@@ -1,21 +1,14 @@
-
-
-
-
 <template name="groups">
   <h2>Select Group or Create a New One</h2>
   <div id=groupContainer>
     {{#each group}}
-    <!--a href="#{{groupName}}" class="group {{selectedClass}}"-->
       <div class="group logo" style="background-image:url({{logoUrl}})">
         <div class="title {{selectedClass}}">{{groupName}}</div>
       </div>
-    <!--/a-->
     {{/each}}
     {{#if currentUser}}
       <div id=addButton class="logo" style="background-image:url({{newGroupLogo}})" title="Add New Group">
         <div class="title {{selectedClass}}">{{newGroupName}}</div>
-
       </div>
 
       {{#if addButton}}
@@ -29,25 +22,14 @@
         </div>
       {{/if}}
 
-
-
-
     {{/if}}
   </div>
-
 </template>
 
-<!-- template name="groupLogo">
-  <form class="" action="" method="post">
-    <input type="text" name="logoUrl" value="{{logoUrl}}" placeholder="Place Image URL">
-    <input type="submit" value="Set Group Logo">
-  </form>
-</template -->
 
 
 <template name="groupControls">
   <div class="{{creatorClass}}">
-
     {{> participantsList}}
     {{> usersList}}
     {{> eventPizzaDayControls}}
@@ -64,14 +46,12 @@
 
 <template name="usersList">
   <form class="" action="" method="post">
-    <!-- h2>Registered Users:</h2 -->
     <select name="selectedUser">
       {{#each user}}
         <option>{{profile.name}}</option>
       {{/each}}
     </select>
     <input type="submit" name="addUserToGroup" value="Add User to '{{selectedGroup}}'">
-
   </form>
 </template>
 
@@ -81,7 +61,6 @@
 
 <template name="participantsList">
   <h2>Users In '{{selectedGroup}}' Group</h2>
-  <!-- form action="" method="post" -->
     <ul>
       {{#each participant}}
         <li>
@@ -90,6 +69,4 @@
         </li>
       {{/each}}
     </ul>
-    <!-- input type="submit" name="addUserToGroup" value="Add User" -->
-  <!-- /form -->
 </template>

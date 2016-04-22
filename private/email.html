@@ -1,13 +1,10 @@
-
-
-
 <template name="emailHtml">
   <h2>Hi, {{eventList.userName}}!</h2>
   <p>Do'nt miss Pizza Day Event at {{eventList.eventDate}}</p>
   <p>Your order:</p>
   <ul>
     {{#each eventList.order}}
-    <li>{{itemName}} x {{count}}</li>
+    <li>{{itemName}} &times; {{count}}</li>
     {{/each}}
   </ul>
   <h3>You should pay to {{eventList.eventManager}} ${{eventList.total$}}</h3>
@@ -16,12 +13,11 @@
     <h2>Total Order</h2>
     <ul>
       {{#each eventList.totalOrder}}
-        <li>{{itemName}} x {{itemCount}}</li>
+        <li>{{itemName}} &times; {{itemCount}}</li>
       {{/each}}
     </ul>
     <h3>
       Total Cost: ${{eventList.eventTotalCost}}
     </h3>
   {{/if}}
-
 </template>
